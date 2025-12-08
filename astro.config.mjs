@@ -13,17 +13,9 @@ export default defineConfig({
   // capee kali lah hidup kek gini
 image: {
   domains: [
+    "cdn.myanimelist.net",
     "sankavollerei.com",
-    "anoboy.be",
-
-    // kemungkinan domain poster Zoro / Sankavollerei
-    "static.zoro.to",
-    "zoro.to",
-    "img.zorores.com",
-    "img.bunnycdn.net",
-    "i.ibb.co",
-    "gogocdn.net",
-    "cdn.noire.cc"
+    "anoboy.be"
   ],
 },
 
