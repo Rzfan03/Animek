@@ -10,10 +10,22 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
 
-  // domain image agar Image component tidak error
-  image: {
-    domains: ["anoboy.be", "sankavollerei.com"],
-  },
+  // capee kali lah hidup kek gini
+image: {
+  domains: [
+    "sankavollerei.com",
+    "anoboy.be",
+
+    // kemungkinan domain poster Zoro / Sankavollerei
+    "static.zoro.to",
+    "zoro.to",
+    "img.zorores.com",
+    "img.bunnycdn.net",
+    "i.ibb.co",
+    "gogocdn.net",
+    "cdn.noire.cc"
+  ],
+},
 
   // gunakan SSR (server output)
   output: "server",
