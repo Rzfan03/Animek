@@ -1,0 +1,144 @@
+---
+const page = Number(Astro.url.searchParams.get("page")) || 1;
+// Fetch API
+const res = await fetch(`https://www.sankavollerei.com/anime/zoronime/home?page=${page}`);
+const json = await res.json();
+
+
+// anime_list adalah ARRAY
+const dataAnime = json.animes;
+
+import '../styles/global.css'
+
+import Image from 'astro/components/Image.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+const title = 'Welcome To Animek!';
+---
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.css" rel="stylesheet" />
+	<title>{title}</title>
+</head>
+<body class=" bg-gray-900">
+       	<Navbar/>
+    <div class="mx-5">
+       
+	<!-- <div id="card-simple" class="flex flex-col items-center">
+		<img src="" alt="poster-animek">
+		<h1 id="title"></h1>
+		<p id="episode"></p>
+		<p id="relase"></p>
+		<p id="type"></p>
+	</div> -->
+	
+	
+	
+	
+	
+	<div id="default-carousel" class="relative w-full" data-carousel="slide">
+			<div class="relative h-52 md:h-120 overflow-hidden rounded-md">
+
+				<div class="hidden duration-700 ease-in-out" data-carousel-item>
+					<img src="https://images4.alphacoders.com/100/thumb-1920-1001038.jpg" class="absolute w-full h-full object-cover" alt="">
+					<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+
+					<div class="absolute bottom-4 left-4 md:bottom-10 md:left-10">
+						<h1 class="text-white text-2xl md:text-7xl font-bold">Naruto Shippuden</h1>
+						<p class="hidden md:block text-white max-w-xl">Naruto kembali setelah berlatih keras bersama Jiraiya...</p>
+						<a href="/anime/naruto-shippuuden" class="mt-3 inline-block bg-indigo-500 text-white py-2 px-5 rounded-md">Tonton</a>
+					</div>
+				</div>
+
+				<div class="hidden duration-700 ease-in-out" data-carousel-item>
+					<img src="https://images3.alphacoders.com/132/1329183.jpeg" class="absolute w-full h-full object-cover" alt="">
+					<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+
+					<div class="absolute bottom-4 left-4 md:bottom-10 md:left-10">
+						<h1 class="text-white text-2xl md:text-7xl font-bold">One Piece Live Action</h1>
+						<p class="hidden md:block text-white max-w-xl">Perjalanan Luffy mengumpulkan kru legendaris...</p>
+						<a href="/anime/one-piece-live-action" class="mt-3 inline-block bg-indigo-500 text-white py-2 px-5 rounded-md">Tonton</a>
+					</div>
+				</div>
+
+				<div class="hidden duration-700 ease-in-out" data-carousel-item>
+					<img src="https://images7.alphacoders.com/137/1376188.png" class="absolute w-full h-full object-cover" alt="">
+					<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+
+					<div class="absolute bottom-4 left-4 md:bottom-10 md:left-10">
+						<h1 class="text-white text-2xl md:text-7xl font-bold">Dragon Ball Daima</h1>
+						<p class="hidden md:block text-white max-w-xl">Petualangan baru menuju dunia iblis...</p>
+						<a href="/detail/naruto-shippuuden" class="mt-3 inline-block bg-indigo-500 text-white py-2 px-5 rounded-md">Tonton</a>
+					</div>
+				</div>
+
+				<div class="hidden duration-700 ease-in-out" data-carousel-item>
+					<img src="https://images3.alphacoders.com/907/907918.jpg" class="absolute w-full h-full object-cover" alt="">
+					<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+
+					<div class="absolute bottom-4 left-4 md:bottom-10 md:left-10">
+						<h1 class="text-white text-2xl md:text-6xl font-bold">Jojo: Stardust Crusaders</h1>
+						<p class="hidden md:block text-white max-w-xl">Petualangan mengejar Dio yang kembali bangkit...</p>
+						<a href="/anime/jojo-no-kimyou-na-bouken-stardust-crusaders" class="mt-3 inline-block bg-indigo-500 text-white py-2 px-5 rounded-md">Tonton</a>
+					</div>
+				</div>
+
+				<div class="hidden duration-700 ease-in-out" data-carousel-item>
+					<img src="https://images7.alphacoders.com/849/thumb-1920-849213.png" class="absolute w-full h-full object-cover" alt="">
+					<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+
+					<div class="absolute bottom-4 left-4 md:bottom-10 md:left-10">
+						<h1 class="text-white text-2xl md:text-7xl font-bold">Neon Genesis Evangelion</h1>
+						<p class="hidden md:block text-white max-w-xl">Shinji dan EVA Unit-01 bertarung melawan Angel...</p>
+						<a href="/anime/neon-genesis-evangelion" class="mt-3 inline-block bg-indigo-500 text-white py-2 px-5 rounded-md">Tonton</a>
+					</div>
+				</div>
+			</div>
+		</div>
+       
+       
+       
+	<div class="grid grid-cols-4 max-md:grid-cols-2 gap-4 mt-5">
+	{dataAnime.map((anime) => (
+         <div class="flex flex-col rounded-md p-5 hover:scale-97 transition-all" key={anime.slug}>
+             <a href={`/detail/${anime.slug}`}>
+           <Image src={anime.poster} width={350} height={350} class="rounded-md shadow-lg" alt="anime-poster" />
+             </a>
+           <h1 class="font-bold text-indigo-500 mt-3 max-md:text-sm">{anime.title}</h1>
+           <p class="text-sm text-indigo-400 mt-2">{anime.episode_or_type}</p>
+       
+           <div class="flex justify-between items-center text-center gap-2 flex-1 mt-4">
+             <p class="text-sm bg-indigo-500 max-md:text-xs rounded-md text-white w-fit py-2 px-2">{anime.score}</p>
+       
+             <!-- Link ke video player sesuai slug-anime -->
+             <a href={`/anime/${anime.slug}`} class=" bg-indigo-500 text-white w-fit px-10 max-md:px-4 py-1 text-center rounded-md">
+               Tonton!
+             </a>
+       
+           </div>
+         </div>
+       ))}
+       
+	
+       
+	</div>
+	
+	
+	<div class="mt-5 gap-8 flex justify-center items-center">
+	<a href={`?page=${page - 1}`} class="py-2 px-5 bg-indigo-500 text-white rounded-md">Prev</a>
+       <a href={`?page=${page + 1}`} class="py-2 px-5 bg-indigo-500 text-white rounded-md">Next</a>
+	</div>
+	
+	
+	
+       <Footer/>
+    </div>
+</body>
+<script is:inline src="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.js"></script>
+</html>

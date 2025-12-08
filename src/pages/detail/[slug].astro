@@ -1,0 +1,53 @@
+---
+import 'remixicon/fonts/remixicon.css';
+const { slug } = Astro.params;
+const res = await fetch(`https://www.sankavollerei.com/anime/zoronime/detail/${slug}`);
+const data = await res.json();
+const anime = data.detail;
+
+// fetch search api untuk dapat detail lebih lengkap
+const resSearch = await fetch(`https://www.sankavollerei.com/anime/zoronime/search/${slug}`)
+const dataSearch = await resSearch.json();
+const search = dataSearch.animes;
+
+ const episode = anime?.episode_list || [];
+ const poster = search[0]?.poster;
+
+  
+  
+
+
+
+
+console.log(search);
+import '../../styles/global.css'
+
+import Navbar from "../../components/Navbar.astro";
+
+console.log("DATA detail:", data);
+---
+<Navbar/>
+<body class="dark:bg-gray-900">
+	
+<title>Detail {anime.title}</title>
+<div class="absolute -z-50 blur-md">
+    <img src={poster} class="w-screen absolute saturate-0 contrast-200 h-screen flex items-center justify-center opacity-40 object-cover" alt="">
+    <div class="h-screen w-screen bg-black">
+        
+    </div>
+</div>
+
+
+<div class="p-8 flex gap-8 mx-20 items-center justify-center">
+    <div class="p-8">
+        <img src={poster} class="h-120 max-w-7xl rounded-md" alt="">
+    </div>
+    <div>
+        <h1 class="text-3xl font-bold text-wrap text-indigo-500 mb-5">{anime.title}</h1>
+        <p class="text-wrap text-gray-200 mb-8">Synopsis: {anime.synopsis}</p>
+        <p class="text-indigo-400">Total Episode : {episode.length}</p>
+        <p class="mb-6 text-indigo-400">Genre:  {anime.genres[0]?.name} {anime.genres[1]?.name} {anime.genres[2]?.name}</p>
+        <a class="bg-indigo-500 rounded-full py-3 px-8 text-center w-fit text-white" href={`/anime/${anime.slug}`}> <i class="ri-play-large-fill text-center text-white mr-2"></i>Tonton</a>
+    </div>
+</div>
+</body>

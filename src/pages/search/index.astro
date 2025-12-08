@@ -1,0 +1,14 @@
+---
+import './global.css';
+
+// Ambil query parameter dari URL
+const url = new URL(Astro.request.url);
+const searchQuery = url.searchParams.get('q'); // ?q=naruto
+
+if (searchQuery) {
+    const apiUrl = `https://www.sankavollerei.com/anime/oploverz/search/${searchQuery}`;
+    const res = await fetch(apiUrl);
+    const data = await res.json();
+    console.log(data);
+}
+---
