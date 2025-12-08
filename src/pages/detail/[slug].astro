@@ -1,53 +1,80 @@
 ---
 import 'remixicon/fonts/remixicon.css';
 const { slug } = Astro.params;
+
+// Fetch detail
 const res = await fetch(`https://www.sankavollerei.com/anime/zoronime/detail/${slug}`);
 const data = await res.json();
 const anime = data.detail;
 
-// fetch search api untuk dapat detail lebih lengkap
-const resSearch = await fetch(`https://www.sankavollerei.com/anime/zoronime/search/${slug}`)
+// Fetch search untuk ambil poster lebih lengkap
+const resSearch = await fetch(`https://www.sankavollerei.com/anime/zoronime/search/${slug}`);
 const dataSearch = await resSearch.json();
 const search = dataSearch.animes;
 
- const episode = anime?.episode_list || [];
- const poster = search[0]?.poster;
+const episode = anime?.episode_list || [];
+const poster = search[0]?.poster;
 
-  
-  
-
-
-
-
-console.log(search);
-import '../../styles/global.css'
-
+import "../../styles/global.css";
 import Navbar from "../../components/Navbar.astro";
-
-console.log("DATA detail:", data);
 ---
-<Navbar/>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{anime.title}</title>
+</head>
+
 <body class="dark:bg-gray-900">
-	
-<title>Detail {anime.title}</title>
-<div class="absolute -z-50 blur-md">
-    <img src={poster} class="w-screen absolute saturate-0 contrast-200 h-screen flex items-center justify-center opacity-40 object-cover" alt="">
-    <div class="h-screen w-screen bg-black">
-        
+
+<Navbar/>
+
+<!-- BACKGROUND POSTER -->
+<div class="absolute inset-0 -z-50 overflow-hidden">
+    <img src={poster} 
+         class="w-full h-full object-cover opacity-40 saturate-0 contrast-200"
+         alt=""
+    />
+    <div class="absolute inset-0 bg-black/50"></div>
+</div>
+
+<!-- CONTENT -->
+<div class="px-4 md:px-20 py-10 flex flex-col md:flex-row gap-8 items-center md:items-start justify-center">
+
+    <!-- Poster -->
+    <div class="w-full max-w-xs md:max-w-sm">
+        <img src={poster} 
+             class="w-full rounded-lg shadow-lg"
+             alt=""
+        />
+    </div>
+
+    <!-- Detail -->
+    <div class="text-white max-w-2xl mb-12">
+        <h1 class="text-3xl font-bold text-indigo-400 mb-4">
+            {anime.title}
+        </h1>
+
+        <p class="text-gray-200 mb-6 leading-relaxed">
+            {anime.synopsis}
+        </p>
+
+        <p class="text-indigo-300 mb-2">
+            Total Episode: {episode.length}
+        </p>
+
+        <p class="text-indigo-300 mb-6">
+            Genre: {anime.genres?.map(g => g.name).join(", ")}
+        </p>
+
+        <a href={`/anime/${anime.slug}`}
+           class="inline-flex items-center bg-indigo-500 hover:bg-indigo-600
+                  px-6 py-3 rounded-full text-white font-semibold">
+           <i class="ri-play-large-fill mr-2"></i>
+           Tonton
+        </a>
     </div>
 </div>
 
-
-<div class="p-8 flex gap-8 mx-20 items-center justify-center">
-    <div class="p-8">
-        <img src={poster} class="h-120 max-w-7xl rounded-md" alt="">
-    </div>
-    <div>
-        <h1 class="text-3xl font-bold text-wrap text-indigo-500 mb-5">{anime.title}</h1>
-        <p class="text-wrap text-gray-200 mb-8">Synopsis: {anime.synopsis}</p>
-        <p class="text-indigo-400">Total Episode : {episode.length}</p>
-        <p class="mb-6 text-indigo-400">Genre:  {anime.genres[0]?.name} {anime.genres[1]?.name} {anime.genres[2]?.name}</p>
-        <a class="bg-indigo-500 rounded-full py-3 px-8 text-center w-fit text-white" href={`/anime/${anime.slug}`}> <i class="ri-play-large-fill text-center text-white mr-2"></i>Tonton</a>
-    </div>
-</div>
 </body>
+</html>
