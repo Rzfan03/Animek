@@ -19,8 +19,8 @@ export default defineConfig({
   output: "server",
 
   // adapter untuk NETLIFY
-  // adapter: netlify({
-  //   // OPTIONAL: paths bisa kamu aktifkan kalau pakai function custom
-  //   // binaryMediaTypes: ["*/*"]
-  // }),
+  adapter: netlify({
+    // OPTIONAL: paths bisa kamu aktifkan kalau pakai function custom
+    // binaryMediaTypes: ["*/*"]
+  }),
 });
