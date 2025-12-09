@@ -1,0 +1,50 @@
+---
+import { supabase } from '../../lib/supabase.js';
+import 'remixicon/fonts/remixicon.css';
+import '../../styles/global.css';
+---
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register</title>
+</head>
+<body class="bg-gray-900 flex items-center justify-center min-h-screen">
+
+<div class="w-full max-w-md p-8 bg-gray-800 rounded-md shadow-md">
+  <h1 class="text-3xl font-bold text-indigo-500 mb-6 text-center">Register</h1>
+  <form id="registerForm" class="flex flex-col gap-4">
+    <input type="text" placeholder="Username" required class="p-3 rounded-md bg-gray-700 text-white"/>
+    <input type="email" placeholder="Email" required class="p-3 rounded-md bg-gray-700 text-white"/>
+    <input type="password" placeholder="Password" required class="p-3 rounded-md bg-gray-700 text-white"/>
+    <button type="submit" class="bg-indigo-500 hover:bg-indigo-600 text-white p-3 rounded-md font-semibold">Register</button>
+  </form>
+  <p class="mt-4 text-gray-400 text-sm text-center">
+    Sudah punya akun? <a href="/login" class="text-indigo-500 font-semibold">Login</a>
+  </p>
+</div>
+
+<script type="module">
+  import { supabase } from '../../lib/supabase.js';
+
+  const form = document.getElementById('registerForm');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const username = form.querySelector('input[type=text]').value;
+    const email = form.querySelector('input[type=email]').value;
+    const password = form.querySelector('input[type=password]').value;
+
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: { data: { username } }
+    });
+
+    if(error) return alert(error.message);
+    alert('Berhasil register! Silakan cek email untuk verifikasi.');
+    window.location.href = '/login';
+  });
+</script>
+</body>
+</html>

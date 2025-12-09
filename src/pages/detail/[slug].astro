@@ -32,10 +32,10 @@ import Navbar from "../../components/Navbar.astro";
 <!-- BACKGROUND POSTER -->
 <div class="absolute inset-0 -z-50 overflow-hidden">
     <img src={poster} 
-         class="w-full h-full object-cover opacity-40 saturate-0 contrast-200"
+         class="w-full h-full object-cover rounded-b-3xl opacity-40 saturate-0 contrast-200"
          alt=""
     />
-    <div class="absolute inset-0 bg-black/50"></div>
+    <div class="absolute inset-0 bg-black/50 rounded-b-3xl"></div>
 </div>
 
 <!-- CONTENT -->
@@ -67,7 +67,7 @@ import Navbar from "../../components/Navbar.astro";
             Genre: {anime.genres?.map(g => g.name).join(", ")}
         </p>
 
-        <a href={`/anime/${anime.slug}`}
+        <a href={`/anime/${slug}`}
            class="inline-flex items-center bg-indigo-500 hover:bg-indigo-600
                   px-6 py-3 rounded-full text-white font-semibold">
            <i class="ri-play-large-fill mr-2"></i>

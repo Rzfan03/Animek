@@ -1,0 +1,33 @@
+---
+import { supabase } from '../lib/supabase';
+const redirectUrl = Astro.props.redirectUrl || '/';
+---
+
+<form id="loginForm" class="flex flex-col gap-4 w-80 bg-gray-800 p-6 rounded-lg">
+  <h2 class="text-2xl font-bold text-indigo-400">Login</h2>
+  <input type="email" name="email" placeholder="Email" class="p-2 rounded bg-gray-700" required>
+  <input type="password" name="password" placeholder="Password" class="p-2 rounded bg-gray-700" required>
+  <button type="submit" class="bg-indigo-500 py-2 rounded font-bold">Login</button>
+</form>
+
+<script type="module">
+import { supabase } from '../lib/supabase.js';
+
+const form = document.getElementById('loginForm');
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const data = Object.fromEntries(new FormData(form));
+  
+  const { data: user, error } = await supabase.auth.signInWithPassword({
+    email: data.email,
+    password: data.password
+  });
+
+  if(error){
+    alert(error.message);
+  } else {
+    localStorage.setItem('user_id', user.user.id);
+    window.location.href = redirectUrl;
+  }
+});
+</script>

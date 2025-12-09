@@ -10,21 +10,17 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
 
-  // capee kali lah hidup kek gini
-image: {
-  domains: [
-    "cdn.myanimelist.net",
-    "sankavollerei.com",
-    "anoboy.be"
-  ],
-},
+  // domain image agar Image component tidak error
+  image: {
+    domains: ["anoboy.be", "sankavollerei.com"],
+  },
 
   // gunakan SSR (server output)
   output: "server",
 
   // adapter untuk NETLIFY
-  adapter: netlify({
-    // OPTIONAL: paths bisa kamu aktifkan kalau pakai function custom
-    // binaryMediaTypes: ["*/*"]
-  }),
+  // adapter: netlify({
+  //   // OPTIONAL: paths bisa kamu aktifkan kalau pakai function custom
+  //   // binaryMediaTypes: ["*/*"]
+  // }),
 });

@@ -1,0 +1,45 @@
+---
+import { supabase } from '../../lib/supabase.js';
+import 'remixicon/fonts/remixicon.css';
+import '../../styles/global.css';
+---
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+</head>
+<body class="bg-gray-900 flex items-center justify-center min-h-screen">
+
+<div class="w-full max-w-md p-8 bg-gray-800 rounded-md shadow-md">
+  <h1 class="text-3xl font-bold text-indigo-500 mb-6 text-center">Login</h1>
+  <form id="loginForm" class="flex flex-col gap-4">
+    <input type="email" placeholder="Email" required class="p-3 rounded-md bg-gray-700 text-white"/>
+    <input type="password" placeholder="Password" required class="p-3 rounded-md bg-gray-700 text-white"/>
+    <button type="submit" class="bg-indigo-500 hover:bg-indigo-600 text-white p-3 rounded-md font-semibold">Login</button>
+  </form>
+  <p class="mt-4 text-gray-400 text-sm text-center">
+    Belum punya akun? <a href="/register" class="text-indigo-500 font-semibold">Daftar</a>
+  </p>
+</div>
+
+<script type="module">
+  import { supabase } from '../../lib/supabase.js';
+
+  const form = document.getElementById('loginForm');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = form.querySelector('input[type=email]').value;
+    const password = form.querySelector('input[type=password]').value;
+
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    if(error) return alert(error.message);
+
+    localStorage.setItem('user_id', data.user.id);
+    alert('Login berhasil!');
+    window.location.href = '/'; // redirect ke homepage
+  });
+</script>
+</body>
+</html>
