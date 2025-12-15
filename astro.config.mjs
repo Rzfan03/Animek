@@ -12,7 +12,7 @@ export default defineConfig({
 
   // domain image agar Image component tidak error
   image: {
-    domains: ["anoboy.be", "sankavollerei.com"],
+    domains: ["anoboy.be", "sankavollerei.com", "cdn.myanimelist.net"],
   },
 
   // gunakan SSR (server output)
